@@ -11,10 +11,22 @@
   --craft-border: #e8ddd1;
   --craft-code-bg: #f3ede5;
   --craft-shadow: 0 2px 12px rgba(61, 51, 41, 0.08);
+
+  /* PaperMod 내부 변수도 통일 */
+  --theme: #faf6f1;
+  --entry: #fff;
+  --primary: #3d3329;
+  --secondary: #7a6e63;
+  --tertiary: #e8ddd1;
+  --content: #3d3329;
+  --border: #e8ddd1;
+  --code-block-bg: #f3ede5;
+  --code-bg: #f3ede5;
 }
 
 /* --- Color Palette (Dark) — "밤의 서재" --- */
-.dark {
+.dark,
+:root[data-theme="dark"] {
   --craft-bg: #231e19;
   --craft-bg-card: #2e2720;
   --craft-text: #ddd0c3;
@@ -24,6 +36,17 @@
   --craft-border: #3f3529;
   --craft-code-bg: #2a231c;
   --craft-shadow: 0 2px 12px rgba(35, 30, 25, 0.5);
+
+  /* PaperMod 내부 변수도 통일 */
+  --theme: #231e19;
+  --entry: #2e2720;
+  --primary: #ddd0c3;
+  --secondary: #9e8e7e;
+  --tertiary: #3f3529;
+  --content: #ddd0c3;
+  --border: #3f3529;
+  --code-block-bg: #2a231c;
+  --code-bg: #2a231c;
 }
 
 /* --- Typography --- */
@@ -46,19 +69,30 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 720px;
 }
 
-/* --- Header / Nav --- */
+/* --- Header / Nav (본문과 자연스럽게 이어짐) --- */
+header {
+  background: transparent;
+}
+
 .nav {
-  background: var(--craft-bg);
+  background: transparent;
+  max-width: 720px;
+  padding-bottom: 0;
 }
 
 #menu a {
   color: var(--craft-text-secondary);
   font-size: 0.9rem;
+  transition: color 0.2s ease;
 }
 
 #menu a:hover,
 #menu .active {
   color: var(--craft-accent);
+}
+
+#menu .active {
+  border-bottom-color: var(--craft-accent);
 }
 
 .logo a {
