@@ -1,0 +1,16 @@
+profile:
+  name: "YYong"
+  title: "Backend Developer"
+  summary: "Python, DDD, Microservices 기반 백엔드 개발"
+
+skills:
+  - category: "Backend"
+    items: ["Python", "FastAPI", "Django"]
+  - category: "Architecture"
+    items: ["DDD", "Clean Architecture", "Microservices"]
+  - category: "Infra"
+    items: ["Docker", "AWS", "GitHub Actions"]
+  - category: "Tools"
+    items: ["Claude Code", "Git", "PostgreSQL"]
+
+achievements: []
