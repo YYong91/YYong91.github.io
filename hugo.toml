@@ -1,0 +1,44 @@
+baseURL = "https://yyong91.github.io/"
+languageCode = "ko"
+title = "Seungyong's Dev Log"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+
+[params.homeInfoParams]
+  Title = "Seungyong"
+  Content = "Backend Developer — Python, DDD, Microservices"
+
+[params.author]
+  name = "Seungyong"
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/YYong91"
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Blog"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 20
+  [[menu.main]]
+    identifier = "resume"
+    name = "Resume"
+    url = "/resume/"
+    weight = 30
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
