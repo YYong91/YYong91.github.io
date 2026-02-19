@@ -13,17 +13,17 @@
   --craft-shadow: 0 2px 12px rgba(61, 51, 41, 0.08);
 }
 
-/* --- Color Palette (Dark) --- */
+/* --- Color Palette (Dark) — "밤의 서재" --- */
 .dark {
-  --craft-bg: #1e1a16;
-  --craft-bg-card: #2a2420;
-  --craft-text: #e8ddd1;
-  --craft-text-secondary: #a89888;
-  --craft-accent: #e07a54;
-  --craft-accent-hover: #f09070;
-  --craft-border: #3d3329;
-  --craft-code-bg: #2a2420;
-  --craft-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --craft-bg: #231e19;
+  --craft-bg-card: #2e2720;
+  --craft-text: #ddd0c3;
+  --craft-text-secondary: #9e8e7e;
+  --craft-accent: #c96442;
+  --craft-accent-hover: #d9785a;
+  --craft-border: #3f3529;
+  --craft-code-bg: #2a231c;
+  --craft-shadow: 0 2px 12px rgba(35, 30, 25, 0.5);
 }
 
 /* --- Typography --- */
@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .dark .post-entry:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(35, 30, 25, 0.6);
 }
 
 .entry-header h2 {
