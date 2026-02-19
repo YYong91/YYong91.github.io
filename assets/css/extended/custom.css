@@ -1,14 +1,253 @@
-/* Code block styling */
-.post-content pre {
-  border-radius: 8px;
+/* ===== Warm Craft Theme ===== */
+
+/* --- Color Palette (Light) --- */
+:root {
+  --craft-bg: #faf6f1;
+  --craft-bg-card: #fff;
+  --craft-text: #3d3329;
+  --craft-text-secondary: #7a6e63;
+  --craft-accent: #c96442;
+  --craft-accent-hover: #a84e30;
+  --craft-border: #e8ddd1;
+  --craft-code-bg: #f3ede5;
+  --craft-shadow: 0 2px 12px rgba(61, 51, 41, 0.08);
 }
 
-/* Slightly wider content on large screens */
+/* --- Color Palette (Dark) --- */
+.dark {
+  --craft-bg: #1e1a16;
+  --craft-bg-card: #2a2420;
+  --craft-text: #e8ddd1;
+  --craft-text-secondary: #a89888;
+  --craft-accent: #e07a54;
+  --craft-accent-hover: #f09070;
+  --craft-border: #3d3329;
+  --craft-code-bg: #2a2420;
+  --craft-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Typography --- */
+body {
+  font-family: 'Source Serif 4', 'Noto Serif KR', Georgia, serif;
+  background: var(--craft-bg);
+  color: var(--craft-text);
+  letter-spacing: -0.01em;
+  line-height: 1.8;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Serif KR', 'Source Serif 4', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* --- Global overrides --- */
 .main {
-  max-width: 780px;
+  max-width: 720px;
 }
 
-/* Tag styling */
-.post-tags a {
+/* --- Header / Nav --- */
+.nav {
+  background: var(--craft-bg);
+}
+
+#menu a {
+  color: var(--craft-text-secondary);
+  font-size: 0.9rem;
+}
+
+#menu a:hover,
+#menu .active {
+  color: var(--craft-accent);
+}
+
+.logo a {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  color: var(--craft-text);
+}
+
+/* --- Home profile --- */
+.first-entry .entry-header h2 {
+  font-size: 1.6rem;
+}
+
+.home-info .entry-content {
+  color: var(--craft-text-secondary);
+  font-size: 1.05rem;
+}
+
+/* --- Post list (card style) --- */
+.post-entry {
+  background: var(--craft-bg-card);
+  border: 1px solid var(--craft-border);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--craft-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(61, 51, 41, 0.12);
+}
+
+.dark .post-entry:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.entry-header h2 {
+  font-size: 1.15rem;
+  color: var(--craft-text);
+}
+
+.entry-content {
+  color: var(--craft-text-secondary);
+  font-size: 0.92rem;
+}
+
+/* --- Links --- */
+a {
+  color: var(--craft-accent);
+}
+
+a:hover {
+  color: var(--craft-accent-hover);
+}
+
+.post-content a {
+  text-decoration: underline;
+  text-decoration-color: var(--craft-border);
+  text-underline-offset: 3px;
+}
+
+.post-content a:hover {
+  text-decoration-color: var(--craft-accent);
+}
+
+/* --- Post content --- */
+.post-content {
+  font-size: 1.02rem;
+  color: var(--craft-text);
+}
+
+.post-content h2 {
+  margin-top: 2rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--craft-border);
+}
+
+/* --- Code blocks --- */
+.post-content pre {
+  border-radius: 10px;
+  background: var(--craft-code-bg);
+  border: 1px solid var(--craft-border);
+}
+
+.post-content code {
+  background: var(--craft-code-bg);
   border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.88em;
+  color: var(--craft-accent);
+}
+
+.post-content pre code {
+  color: inherit;
+  background: none;
+  padding: 0;
+}
+
+/* --- Tags --- */
+.post-tags a {
+  background: var(--craft-code-bg);
+  border: 1px solid var(--craft-border);
+  border-radius: 6px;
+  color: var(--craft-text-secondary);
+  font-size: 0.82rem;
+  padding: 0.2em 0.6em;
+}
+
+.post-tags a:hover {
+  background: var(--craft-accent);
+  color: #fff;
+  border-color: var(--craft-accent);
+}
+
+/* --- Breadcrumbs --- */
+.breadcrumbs a {
+  color: var(--craft-text-secondary);
+}
+
+/* --- Table of Contents --- */
+.toc a {
+  color: var(--craft-text-secondary);
+}
+
+.toc a:hover {
+  color: var(--craft-accent);
+}
+
+/* --- Footer --- */
+.footer {
+  color: var(--craft-text-secondary);
+  font-size: 0.85rem;
+}
+
+/* --- Social icons --- */
+.social-icons a {
+  color: var(--craft-text-secondary);
+}
+
+.social-icons a:hover {
+  color: var(--craft-accent);
+}
+
+/* --- Search --- */
+#searchInput {
+  background: var(--craft-bg-card);
+  border: 1px solid var(--craft-border);
+  border-radius: 10px;
+  color: var(--craft-text);
+  font-family: 'Noto Serif KR', serif;
+}
+
+/* --- Theme toggle --- */
+#moon, #sun {
+  color: var(--craft-text-secondary);
+}
+
+/* --- Post meta --- */
+.post-meta {
+  color: var(--craft-text-secondary);
+  font-size: 0.88rem;
+}
+
+/* --- Pagination --- */
+.pagination a {
+  color: var(--craft-accent);
+}
+
+/* --- Reading time dot separator --- */
+.post-meta .middot::before {
+  color: var(--craft-border);
+}
+
+/* --- Scrollbar (subtle) --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--craft-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--craft-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--craft-text-secondary);
 }
