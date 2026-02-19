@@ -1,6 +1,6 @@
 baseURL = "https://yyong91.github.io/"
 languageCode = "ko"
-title = "Seungyong's Dev Log"
+title = "YYong's Dev Log"
 theme = "PaperMod"
 
 [params]
@@ -13,11 +13,11 @@ theme = "PaperMod"
   ShowToc = true
 
 [params.homeInfoParams]
-  Title = "Seungyong"
-  Content = "Backend Developer — Python, DDD, Microservices"
+  Title = "YYong"
+  Content = "코드 짜고, 구조 잡고, 가끔 삽질 기록하는 백엔드 개발자"
 
 [params.author]
-  name = "Seungyong"
+  name = "YYong"
 
 [[params.socialIcons]]
   name = "github"
