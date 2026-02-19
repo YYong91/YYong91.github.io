@@ -1,0 +1,14 @@
+/* Code block styling */
+.post-content pre {
+  border-radius: 8px;
+}
+
+/* Slightly wider content on large screens */
+.main {
+  max-width: 780px;
+}
+
+/* Tag styling */
+.post-tags a {
+  border-radius: 4px;
+}
