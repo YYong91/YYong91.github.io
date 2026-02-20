@@ -4,33 +4,96 @@
     <h1 class="post-title">{{ .Title }}</h1>
   </header>
 
-  <div class="post-content">
+  <div class="post-content resume-content">
     {{ with site.Data.resume }}
 
     {{/* Profile */}}
-    <h2>{{ .profile.name }}</h2>
-    <p>{{ .profile.title }} — {{ .profile.summary }}</p>
+    <section class="resume-section">
+      <h2>{{ .profile.name }} <span class="resume-subtitle">{{ .profile.title }}</span></h2>
+      <p class="resume-contact">
+        {{ with .profile.email }}<span>{{ . }}</span>{{ end }}
+        {{ with .profile.github }}<span><a href="{{ . }}">GitHub</a></span>{{ end }}
+        {{ with .profile.blog }}<span><a href="{{ . }}">Blog</a></span>{{ end }}
+      </p>
+      {{ with .profile.summary }}<p class="resume-summary">{{ . }}</p>{{ end }}
+    </section>
 
     {{/* Skills */}}
-    <h2>Skills</h2>
-    {{ range .skills }}
-    <h3>{{ .category }}</h3>
-    <p>{{ delimit .items " · " }}</p>
+    <section class="resume-section">
+      <h2>Skills</h2>
+      {{ range .skills }}
+      <div class="resume-skill-row">
+        <span class="resume-skill-category">{{ .category }}</span>
+        <span class="resume-skill-items">{{ delimit .items " · " }}</span>
+      </div>
+      {{ end }}
+    </section>
+
+    {{/* Experience */}}
+    {{ if .experience }}
+    <section class="resume-section">
+      <h2>Experience</h2>
+      {{ range .experience }}
+      <div class="resume-experience">
+        <div class="resume-exp-header">
+          <h3>{{ .company }}</h3>
+          <span class="resume-period">{{ .period }}</span>
+        </div>
+        <p class="resume-position">{{ .position }}</p>
+        {{ with .description }}<p class="resume-description">{{ . }}</p>{{ end }}
+
+        {{ if .projects }}
+        <ul class="resume-project-list">
+          {{ range .projects }}
+          <li>
+            <a href="{{ .link }}"><strong>{{ .name }}</strong></a>
+            <span class="resume-dim">— {{ .summary }}</span>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+      {{ end }}
+    </section>
     {{ end }}
 
-    {{/* Achievements */}}
-    {{ if .achievements }}
-    <h2>Achievements</h2>
-    <ul>
-    {{ range .achievements }}
-      <li>
-        <strong>{{ .date }}</strong> — {{ .bullet_ko }}
-        {{ if .bullet_en }}<br><em>{{ .bullet_en }}</em>{{ end }}
-        {{ if .tags }}<br>{{ range .tags }}<code>{{ . }}</code> {{ end }}{{ end }}
-      </li>
+    {{/* Education */}}
+    {{ if .education }}
+    <section class="resume-section">
+      <h2>Education</h2>
+      {{ range .education }}
+      <div class="resume-exp-header">
+        <h3>{{ .school }}</h3>
+        <span class="resume-period">{{ .period }}</span>
+      </div>
+      <p>{{ .major }}{{ with .degree }} · {{ . }}{{ end }}</p>
+      {{ end }}
+    </section>
     {{ end }}
-    </ul>
-    {{ end }}
+
+    {{/* Certifications & Languages */}}
+    <section class="resume-section resume-two-col">
+      {{ if .certifications }}
+      <div>
+        <h2>Certifications</h2>
+        <ul>
+          {{ range .certifications }}
+          <li>{{ .name }} <span class="resume-dim">— {{ .issuer }}</span></li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+      {{ if .languages }}
+      <div>
+        <h2>Languages</h2>
+        <ul>
+          {{ range .languages }}
+          <li>{{ .name }} <span class="resume-dim">— {{ .level }}</span></li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </section>
 
     {{ end }}
   </div>
