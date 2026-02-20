@@ -13,18 +13,20 @@ profile:
     확장성과 신뢰성을 요구하는 영역에서 주로 역할을 맡았습니다.
 
 skills:
+  - category: "Architecture"
+    items: ["DDD", "Event-driven Architecture", "MSA", "CQRS", "Multi-Tenancy"]
+  - category: "AI Agent"
+    items: ["Claude Code Plugin", "Multi-Agent Pipeline", "Prompt Engineering", "LLM 기반 자동화"]
   - category: "Languages"
     items: ["Python", "Java"]
   - category: "Backend"
-    items: ["Spring Boot", "SQLAlchemy", "Alembic", "JPA", "gRPC"]
-  - category: "Architecture"
-    items: ["DDD", "Event-driven Architecture", "MSA", "CQRS", "Multi-Tenancy"]
+    items: ["SQLAlchemy", "Alembic", "gRPC", "Spring Boot", "JPA"]
   - category: "Messaging"
     items: ["RabbitMQ (AMQP)", "ActiveMQ Classic", "DLQ/Retry", "멱등성 처리"]
-  - category: "Database"
-    items: ["MySQL", "PostgreSQL"]
   - category: "Infra / DevOps"
     items: ["AWS (ECS, Fargate, Lambda)", "Docker", "Terraform", "Jenkins", "GitHub Actions"]
+  - category: "Database"
+    items: ["MySQL", "PostgreSQL"]
   - category: "Observability"
     items: ["Datadog", "CloudWatch", "Dashboard/Alert"]
   - category: "Testing"
