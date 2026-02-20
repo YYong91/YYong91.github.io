@@ -45,6 +45,9 @@ experience:
       - name: "플랫폼 인프라 및 DevOps"
         summary: "Terraform IaC, ECS 배포, CI/CD, 문서 자동화"
         link: "/projects/cubig-infra/"
+      - name: "dev-portfolio: Claude Code 플러그인"
+        summary: "세션 데이터에서 블로그 포스트를 자동 생성하는 AI 에이전트 파이프라인"
+        link: "/projects/dev-portfolio-plugin/"
 
   - company: "주식회사 저스트큐 (JustQ)"
     period: "2020.07 - 2025.12"
