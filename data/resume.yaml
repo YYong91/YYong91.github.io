@@ -70,6 +70,7 @@ experience:
         bullets:
           - "공급사 상품·주문·CS 관리 백엔드 서비스 개발"
           - "통합 주문 관리, 통합 문의 관리 서비스 구축"
+          - "외부 공급사 연동을 위한 OpenAPI 구축 및 사방넷(커머스 ERP) 연동"
       - name: "RabbitMQ DLQ 관리 CLI"
         bullets:
           - "마이크로서비스 간 비동기 메시징 인프라 구성 및 Dead Letter Queue 모니터링·재처리 CLI 개발"
