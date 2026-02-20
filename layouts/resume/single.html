@@ -36,7 +36,7 @@
       {{ range .experience }}
       <div class="resume-experience">
         <div class="resume-exp-header">
-          <h3>{{ .company }}</h3>
+          <h3>{{ if .url }}<a href="{{ .url }}" target="_blank" rel="noopener">{{ .company }}</a>{{ else }}{{ .company }}{{ end }}</h3>
           <span class="resume-period">{{ .period }}</span>
         </div>
         <p class="resume-position">{{ .position }}</p>
@@ -46,8 +46,13 @@
         <ul class="resume-project-list">
           {{ range .projects }}
           <li>
-            <a href="{{ .link }}"><strong>{{ .name }}</strong></a>
-            <span class="resume-dim">— {{ .summary }}</span>
+            {{ if .link }}<a href="{{ .link }}"><strong>{{ .name }}</strong></a>{{ else }}<strong>{{ .name }}</strong>{{ end }}
+            {{ with .summary }}<span class="resume-dim">— {{ . }}</span>{{ end }}
+            {{ if .bullets }}
+            <ul class="resume-bullets">
+              {{ range .bullets }}<li>{{ . }}</li>{{ end }}
+            </ul>
+            {{ end }}
           </li>
           {{ end }}
         </ul>

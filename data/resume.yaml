@@ -6,11 +6,11 @@ profile:
   github: "https://github.com/YYong91"
   blog: "https://yyong91.github.io"
   summary: >
-    도메인 중심으로 문제를 정의하고 기술로 해결하는 백엔드 개발자입니다.
-    Python을 기반으로 백엔드 개발을 해왔으며, 서비스가 성장하는 과정에서 발생하는
-    구조적 문제를 해결하는 데 집중해왔습니다.
-    도메인 구조 정립, 대규모 데이터 흐름 설계, 비동기 메시징 안정화, 아키텍처 전환 등
-    확장성과 신뢰성을 요구하는 영역에서 주로 역할을 맡았습니다.
+    구조적 문제를 먼저 정의하고, AI 에이전트를 레버리지 삼아 빠르게 실행하는 백엔드 엔지니어입니다.
+    기술 목록보다 어떤 도메인 문제를 어떻게 풀었는지를 중심으로 일하며,
+    Claude Code를 포함한 AI 에이전트 협업을 개발 방식의 핵심으로 삼고 있습니다.
+    DDD, MSA, 이벤트 기반 설계 같은 구조적 기반 위에서,
+    AI 에이전트가 실행 속도를 높이는 시대에 맞는 개발 방식을 추구합니다.
 
 skills:
   - category: "Architecture"
@@ -33,10 +33,11 @@ skills:
     items: ["Pytest", "Testcontainers"]
 
 experience:
-  - company: "주식회사 큐빅 (CUBIG)"
+  - company: "큐빅 (CUBIG)"
+    url: "https://cubig.ai"
     period: "2026.01 - 재직중"
     position: "Backend Engineer"
-    description: "AI 기반 합성 데이터 생성 플랫폼(DTS)의 백엔드 시스템을 설계하고 구현하고 있습니다."
+    description: "기업 AI를 위한 합성데이터 플랫폼(AI-Ready Data OS)의 백엔드 시스템을 설계하고 구현하고 있습니다."
     projects:
       - name: "Billing 마이크로서비스"
         summary: "DDD 아키텍처 기반 결제·구독·크레딧 시스템"
@@ -47,27 +48,44 @@ experience:
       - name: "플랫폼 인프라 및 DevOps"
         summary: "Terraform IaC, ECS 배포, CI/CD, 문서 자동화"
         link: "/projects/cubig-infra/"
-      - name: "dev-portfolio: Claude Code 플러그인"
-        summary: "세션 데이터에서 블로그 포스트를 자동 생성하는 AI 에이전트 파이프라인"
-        link: "/projects/dev-portfolio-plugin/"
 
-  - company: "주식회사 저스트큐 (JustQ)"
+  - company: "저스트큐 (JustQ)"
+    url: "https://www.justq.com/"
     period: "2020.07 - 2025.12"
     position: "Backend Engineer"
-    description: "커머스 데이터를 여러 플랫폼에 제공하는 B2B 시스템을 개발하고 운영했습니다."
+    description: "커머스 데이터를 10개 판매채널에 제공하는 B2B 멀티채널 상품 관리 플랫폼을 개발하고 운영했습니다."
     projects:
-      - name: "멀티채널 상품 관리 플랫폼"
-        summary: "DDD, MSA, RabbitMQ 기반 대규모 비동기 처리 시스템"
-        link: "/projects/justq-platform/"
+      - name: "멀티채널 상품 등록 마이크로서비스"
+        bullets:
+          - "판매채널 10개 연동, 일 30~50만 건 처리 (마이그레이션 시 200~300만 건)"
+          - "상품 풀 기반 채널별 중복 제거 pick 알고리즘 설계 및 구현"
+          - "RabbitMQ 비동기 처리, ECS·Lambda 활용 성능 최적화"
+      - name: "판매채널별 메타 커스터마이징 마이크로서비스"
+        bullets:
+          - "채널별 상품 등록 스펙 차이를 메타 구조로 추상화해 단일 인터페이스로 처리"
+      - name: "실시간 상품 수정 / 품절 관리 마이크로서비스"
+        bullets:
+          - "판매채널 실시간 동기화, 품절 이벤트 처리"
+      - name: "공급사 관리 플랫폼 / 통합 주문·문의 관리 서비스"
+        bullets:
+          - "공급사 상품·주문·CS 관리 백엔드 서비스 개발"
+          - "통합 주문 관리, 통합 문의 관리 서비스 구축"
+          - "외부 공급사 연동을 위한 OpenAPI 구축 및 사방넷(커머스 ERP) 연동"
+      - name: "RabbitMQ DLQ 관리 CLI"
+        bullets:
+          - "마이크로서비스 간 비동기 메시징 인프라 구성 및 Dead Letter Queue 모니터링·재처리 CLI 개발"
 
-  - company: "이지케어텍(주)"
-    period: "2016.12 - 2020.07"
+  - company: "이지케어텍"
+    url: "https://www.ezcaretech.com/"
+    period: "2016.12 - 2020.06"
     position: "Software Engineer"
-    description: "병원 정보 시스템(HIS)을 구축하고, 사우디아라비아 현지 파견 개발을 수행했습니다."
+    description: "병원 정보 시스템(HIS/EMR)을 개발하고, 사우디아라비아 현지 파견 개발을 수행했습니다."
     projects:
-      - name: "사우디 현지 병원 HIS 구축"
-        summary: "EMR/HIS 커스터마이징, 의료진 300명 교육, AABB 인증"
-        link: "/projects/ezcare-his/"
+      - name: "사우디아라비아 현지 병원 HIS 구축 (6개월 × 2회 파견)"
+        bullets:
+          - "EMR/HIS 커스터마이징 개발 및 현지 배포. 의사소통 전 과정 영어로 진행"
+          - "간호사 300명 대상 시스템 사용 교육 수행"
+          - "BA 겸 개발자로서 현지 혈액은행 책임자와 직접 소통해 요구사항 도출, 기능 개발 → AABB 국제 인증 취득"
 
 education:
   - school: "경희대학교"
