@@ -36,7 +36,7 @@ Custom CSS at `assets/css/extended/custom.css`.
 
 ## Writing Rules (Anti-AI)
 
-All content in 해요체. Banned: "이번 포스트에서는", "알아보겠습니다", "도움이 되셨길", "결론적으로", "또한/더불어/아울러". Start with problem or result, include actual error messages and numbers.
+All content in 입니다체 (formal polite). Banned: "이번 포스트에서는", "알아보겠습니다", "도움이 되셨길", "결론적으로", "또한/더불어/아울러". Start with problem or result, include actual error messages and numbers.
 
 ## dev-portfolio Plugin
 
