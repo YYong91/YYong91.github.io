@@ -19,32 +19,28 @@ Claude Code 세션 데이터에서 자동으로 블로그 포스트를 생성하
 
 <div class="mermaid">
 graph LR
-    SESSION["Claude Code 세션"]
-
-    subgraph "Phase 1: 추출"
-        SE["session-extractor<br/>(haiku)"]
-    end
-
-    subgraph "Phase 2: 생성"
-        TW["til-writer<br/>(sonnet)"]
-        CW["claude-exp-writer<br/>(sonnet)"]
-        PS["project-summarizer<br/>(sonnet)"]
-        RC["resume-crafter<br/>(sonnet)"]
-    end
-
-    RAW["Raw Log (JSON)"]
-    OUT["Hugo Markdown"]
-
-    SESSION --> SE
-    SE --> RAW
-    RAW --> TW
-    RAW --> CW
-    RAW --> PS
-    RAW --> RC
-    TW --> OUT
-    CW --> OUT
-    PS --> OUT
-    RC --> OUT
+SESSION["Claude Code 세션"]
+subgraph "Phase 1: 추출"
+SE["session-extractor<br/>(haiku)"]
+end
+subgraph "Phase 2: 생성"
+TW["til-writer<br/>(sonnet)"]
+CW["claude-exp-writer<br/>(sonnet)"]
+PS["project-summarizer<br/>(sonnet)"]
+RC["resume-crafter<br/>(sonnet)"]
+end
+RAW["Raw Log (JSON)"]
+OUT["Hugo Markdown"]
+SESSION --> SE
+SE --> RAW
+RAW --> TW
+RAW --> CW
+RAW --> PS
+RAW --> RC
+TW --> OUT
+CW --> OUT
+PS --> OUT
+RC --> OUT
 </div>
 
 ## 구성

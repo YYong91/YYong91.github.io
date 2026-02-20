@@ -26,72 +26,68 @@ Python · SQLAlchemy · Alembic · gRPC · Stripe API · PostgreSQL · Pytest
 
 <div class="mermaid">
 graph TB
-    subgraph "Billing Microservice"
-        subgraph "Credit BC"
-            CA[Credit Account]
-            CR[Credit Reservation]
-            CT[Credit Transaction]
-        end
-        subgraph "Subscription BC"
-            SP[Subscription Plan]
-            SS[Subscription Status]
-        end
-        subgraph "Payment BC"
-            PI[Payment Intent]
-            WH[Webhook Handler]
-        end
-        subgraph "Customer BC"
-            CU[Customer Aggregate]
-            PM[PG Mapping]
-        end
-    end
-
-    EXT_PG["External PG (Stripe)"]
-    EXT_ACC["Account Service (gRPC)"]
-
-    SS -->|"구독 갱신 시 크레딧 충전"| CA
-    WH -->|"결제 완료 → 구독 활성화"| SS
-    WH -->|"Webhook 수신"| EXT_PG
-    CU -->|"고객 식별"| CA
-    CU -->|"PG 매핑 소유"| PM
-    EXT_ACC -->|"gRPC: 고객 정보 조회"| CU
-
-    classDef bc fill:#faf6f1,stroke:#c96442,stroke-width:2px
-    classDef ext fill:#f0f0f0,stroke:#999,stroke-dasharray: 5 5
+subgraph "Billing Microservice"
+subgraph "Credit BC"
+CA[Credit Account]
+CR[Credit Reservation]
+CT[Credit Transaction]
+end
+subgraph "Subscription BC"
+SP[Subscription Plan]
+SS[Subscription Status]
+end
+subgraph "Payment BC"
+PI[Payment Intent]
+WH[Webhook Handler]
+end
+subgraph "Customer BC"
+CU[Customer Aggregate]
+PM[PG Mapping]
+end
+end
+EXT_PG["External PG (Stripe)"]
+EXT_ACC["Account Service (gRPC)"]
+SS -->|"구독 갱신 시 크레딧 충전"| CA
+WH -->|"결제 완료 → 구독 활성화"| SS
+WH -->|"Webhook 수신"| EXT_PG
+CU -->|"고객 식별"| CA
+CU -->|"PG 매핑 소유"| PM
+EXT_ACC -->|"gRPC: 고객 정보 조회"| CU
+classDef bc fill:#faf6f1,stroke:#c96442,stroke-width:2px
+classDef ext fill:#f0f0f0,stroke:#999,stroke-dasharray: 5 5
 </div>
 
 ### 레이어 구조
 
 <div class="mermaid">
 graph LR
-    subgraph "Interface Layer"
-        API[REST API]
-        GRPC[gRPC Server]
-    end
-    subgraph "Application Layer"
-        CMD[Command Handlers]
-        QRY[Query Handlers]
-    end
-    subgraph "Domain Layer"
-        AGG[Aggregates]
-        EVT[Domain Events]
-        SVC[Domain Services]
-    end
-    subgraph "Infrastructure Layer"
-        REPO[Repositories]
-        DB[(PostgreSQL)]
-        MQ[Message Bus]
-    end
-
-    API --> CMD
-    API --> QRY
-    GRPC --> CMD
-    CMD --> AGG
-    CMD --> SVC
-    AGG --> EVT
-    QRY --> REPO
-    REPO --> DB
-    EVT --> MQ
+subgraph "Interface Layer"
+API[REST API]
+GRPC[gRPC Server]
+end
+subgraph "Application Layer"
+CMD[Command Handlers]
+QRY[Query Handlers]
+end
+subgraph "Domain Layer"
+AGG[Aggregates]
+EVT[Domain Events]
+SVC[Domain Services]
+end
+subgraph "Infrastructure Layer"
+REPO[Repositories]
+DB[(PostgreSQL)]
+MQ[Message Bus]
+end
+API --> CMD
+API --> QRY
+GRPC --> CMD
+CMD --> AGG
+CMD --> SVC
+AGG --> EVT
+QRY --> REPO
+REPO --> DB
+EVT --> MQ
 </div>
 
 ---
