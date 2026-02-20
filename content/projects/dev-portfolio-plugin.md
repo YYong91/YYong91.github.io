@@ -48,8 +48,8 @@ RC --> OUT
 | 구성 요소 | 수량 | 역할 |
 |-----------|------|------|
 | **에이전트** | 5개 | session-extractor, til-writer, claude-exp-writer, project-summarizer, resume-crafter |
-| **커맨드** | 6개 | setup, log, generate, status, help, wrap |
-| **스킬** | 2개 | session-logging, draft-generation |
+| **커맨드** | 7개 | setup, plan, log, generate, status, help, wrap |
+| **스킬** | 3개 | session-logging, draft-generation, blog-planner |
 
 ## 핵심 설계
 
@@ -81,6 +81,7 @@ RC --> OUT
 
 ```bash
 /portfolio setup      # 최초 설정 (config.json 생성)
+/portfolio plan       # 블로그 포스트 기획 (주제→독자→핵심메시지→구조 확정 후 작성)
 /portfolio log        # 현재 세션을 raw log로 캡처
 /portfolio generate   # raw log → 블로그 포스트 생성
 /portfolio status     # raw log 목록 확인
