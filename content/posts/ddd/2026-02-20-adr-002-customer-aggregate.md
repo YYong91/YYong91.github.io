@@ -66,7 +66,7 @@ Customer Aggregate가 PG 매핑을 소유합니다. Account 서비스의 ID는 �
 
 ## 이유 (Rationale)
 
-**"PG 매핑은 누가 소유해야 하는가"**
+**PG 매핑은 누가 소유해야 하는가**
 
 PG 매핑은 결제를 위해 존재합니다. 결제는 Billing 도메인의 책임입니다. 따라서 PG 매핑의 소유권도 Billing에 있어야 합니다. Account 서비스에 두는 건 책임을 잘못 배치하는 것입니다.
 
