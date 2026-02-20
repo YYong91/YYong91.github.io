@@ -79,11 +79,13 @@ experience:
     url: "https://www.ezcaretech.com/"
     period: "2016.12 - 2020.06"
     position: "Software Engineer"
-    description: "병원 정보 시스템(HIS)을 구축하고, 사우디아라비아 현지 파견 개발을 수행했습니다."
+    description: "병원 정보 시스템(HIS/EMR)을 개발하고, 사우디아라비아 현지 파견 개발을 수행했습니다."
     projects:
-      - name: "사우디 현지 병원 HIS 구축"
-        summary: "EMR/HIS 커스터마이징, 의료진 300명 교육, AABB 인증"
-        link: "/projects/ezcare-his/"
+      - name: "사우디아라비아 현지 병원 HIS 구축 (6개월 × 2회 파견)"
+        bullets:
+          - "EMR/HIS 커스터마이징 개발 및 현지 배포. 의사소통 전 과정 영어로 진행"
+          - "간호사 300명 대상 시스템 사용 교육 수행"
+          - "BA 겸 개발자로서 현지 혈액은행 책임자와 직접 소통해 요구사항 도출, 기능 개발 → AABB 국제 인증 취득"
 
 education:
   - school: "경희대학교"
