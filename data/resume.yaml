@@ -33,7 +33,8 @@ skills:
     items: ["Pytest", "Testcontainers"]
 
 experience:
-  - company: "주식회사 큐빅 (CUBIG)"
+  - company: "큐빅 (CUBIG)"
+    url: "https://cubig.ai"
     period: "2026.01 - 재직중"
     position: "Backend Engineer"
     description: "기업 AI를 위한 합성데이터 플랫폼(AI-Ready Data OS)의 백엔드 시스템을 설계하고 구현하고 있습니다."
@@ -48,7 +49,8 @@ experience:
         summary: "Terraform IaC, ECS 배포, CI/CD, 문서 자동화"
         link: "/projects/cubig-infra/"
 
-  - company: "주식회사 저스트큐 (JustQ)"
+  - company: "저스트큐 (JustQ)"
+    url: "https://www.justq.com/"
     period: "2020.07 - 2025.12"
     position: "Backend Engineer"
     description: "커머스 데이터를 여러 플랫폼에 제공하는 B2B 시스템을 개발하고 운영했습니다."
@@ -57,7 +59,8 @@ experience:
         summary: "DDD, MSA, RabbitMQ 기반 대규모 비동기 처리 시스템"
         link: "/projects/justq-platform/"
 
-  - company: "이지케어텍(주)"
+  - company: "이지케어텍"
+    url: "https://www.ezcaretech.com/"
     period: "2016.12 - 2020.06"
     position: "Software Engineer"
     description: "병원 정보 시스템(HIS)을 구축하고, 사우디아라비아 현지 파견 개발을 수행했습니다."

@@ -36,7 +36,7 @@
       {{ range .experience }}
       <div class="resume-experience">
         <div class="resume-exp-header">
-          <h3>{{ .company }}</h3>
+          <h3>{{ if .url }}<a href="{{ .url }}" target="_blank" rel="noopener">{{ .company }}</a>{{ else }}{{ .company }}{{ end }}</h3>
           <span class="resume-period">{{ .period }}</span>
         </div>
         <p class="resume-position">{{ .position }}</p>
