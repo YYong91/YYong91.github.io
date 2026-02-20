@@ -46,8 +46,13 @@
         <ul class="resume-project-list">
           {{ range .projects }}
           <li>
-            <a href="{{ .link }}"><strong>{{ .name }}</strong></a>
-            <span class="resume-dim">— {{ .summary }}</span>
+            {{ if .link }}<a href="{{ .link }}"><strong>{{ .name }}</strong></a>{{ else }}<strong>{{ .name }}</strong>{{ end }}
+            {{ with .summary }}<span class="resume-dim">— {{ . }}</span>{{ end }}
+            {{ if .bullets }}
+            <ul class="resume-bullets">
+              {{ range .bullets }}<li>{{ . }}</li>{{ end }}
+            </ul>
+            {{ end }}
           </li>
           {{ end }}
         </ul>
