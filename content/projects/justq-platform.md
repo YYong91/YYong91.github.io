@@ -4,51 +4,160 @@ description: "DDD, MSA, RabbitMQ 기반 대규모 비동기 처리 시스템"
 date: 2020-07-01
 tags: ["DDD", "MSA", "RabbitMQ", "Python", "AWS", "Terraform", "Multi-Tenancy"]
 weight: 10
+mermaid: true
 ---
 
 ## 개요
 
 커머스 데이터를 여러 마켓플레이스에 제공하는 B2B 시스템을 개발하고 운영했습니다. 대규모 데이터를 안정적으로 처리하는 구조를 만드는 데 집중했습니다.
 
-**기간**: 2020.07 ~ 2025.01
+**기간**: 2020.07 ~ 2025.12
 **소속**: 주식회사 저스트큐 (JustQ)
 
 ## 기술 스택
 
 Python · SQLAlchemy · Alembic · RabbitMQ (AMQP) · ActiveMQ · MySQL · AWS (ECS, Fargate, Lambda) · Docker · Terraform · Jenkins · GitHub Actions · CloudWatch · Datadog
 
-## 주요 작업
+---
 
-### 🏗 Python 기반 DDD 적용 및 도메인 구조 정립
+## 아키텍처
 
-- 상품·주문·재고 도메인을 나누고, 팀 간 용어를 통일해 유지보수성과 협업 효율을 높임
-- 도메인 모델과 이벤트로 비즈니스 규칙을 구조화해 기능 변경 시 영향 범위를 줄임
+### MSA 전체 구조
 
-### ⚡ MSA·서버리스 기반 비동기 처리 아키텍처 구축
+<div class="mermaid">
+graph TB
+subgraph "API Gateway"
+GW[API Gateway]
+end
+subgraph "Core Services"
+PS[Product Service]
+OS[Order Service]
+IS[Inventory Service]
+end
+subgraph "Integration Layer"
+SYNC[Sync Worker]
+EXT[External API Adapter]
+end
+subgraph "Messaging"
+MQ[RabbitMQ Cluster]
+DLQ[Dead Letter Queue]
+end
+subgraph "Infrastructure"
+ECS[ECS / Fargate]
+LMB[Lambda]
+DB[(MySQL)]
+MON[Datadog / CloudWatch]
+end
+GW --> PS
+GW --> OS
+GW --> IS
+PS -->|"상품 변경 이벤트"| MQ
+OS -->|"주문 이벤트"| MQ
+MQ --> SYNC
+MQ --> DLQ
+SYNC --> EXT
+EXT -->|"외부 마켓 API"| ECS
+PS --> DB
+OS --> DB
+IS --> DB
+LMB -->|"MQ 메트릭 기반 Auto Scaling"| ECS
+MON --> LMB
+</div>
 
-- ECS, Lambda, Docker 기반 MSA 환경을 구성하고 운영
-- 수백만 건의 상품 데이터를 병렬로 처리해 데이터 일관성을 유지
-- MQ 이벤트량 기반 Auto Scaling 패턴을 적용해 운영 비용 약 35% 절감
+### Multi-Tenancy 구조
 
-### 📨 RabbitMQ 기반 대규모 비동기 메시징 시스템 운영
+<div class="mermaid">
+graph LR
+subgraph "Shared Layer"
+API[공통 API]
+AUTH[인증/인가]
+CORE[공통 도메인 로직]
+end
+subgraph "Tenant Isolation"
+T1[Tenant A Config]
+T2[Tenant B Config]
+T3[Tenant C Config]
+end
+subgraph "Data Layer"
+DB[(Shared DB)]
+SCH1[Schema A]
+SCH2[Schema B]
+SCH3[Schema C]
+end
+API --> AUTH
+AUTH -->|"tenant_id 주입"| CORE
+CORE --> T1
+CORE --> T2
+CORE --> T3
+T1 --> SCH1
+T2 --> SCH2
+T3 --> SCH3
+SCH1 --> DB
+SCH2 --> DB
+SCH3 --> DB
+</div>
 
-- 시간당 30만 건, 하루 600만 건 이상의 메시지를 처리하는 큐 환경 운영
-- DLQ, 재시도 전략, 멱등성 보장, Routing Key 전략 등 도입
-- ActiveMQ → RabbitMQ 전환 작업을 주도해 장애율을 낮추고 처리량 개선
+### RabbitMQ 메시징 흐름
 
-### 🏢 Multi-Tenancy 구조 설계
+<div class="mermaid">
+graph LR
+PUB[Publisher]
+EX[Exchange]
+subgraph "Queue Layer"
+Q1[product.sync]
+Q2[order.process]
+Q3[inventory.update]
+end
+subgraph "Error Handling"
+RETRY[Retry Queue]
+DLQ[Dead Letter Queue]
+ALERT[Alert]
+end
+CON[Consumer Workers]
+PUB -->|"routing key"| EX
+EX --> Q1
+EX --> Q2
+EX --> Q3
+Q1 --> CON
+Q2 --> CON
+Q3 --> CON
+CON -->|"처리 실패"| RETRY
+RETRY -->|"3회 재시도"| CON
+RETRY -->|"최종 실패"| DLQ
+DLQ --> ALERT
+</div>
 
-- 고객사별 데이터 격리를 구현하고 공통 도메인/전용 리소스를 분리
-- 유지보수 비용 약 25% 절감, 신규 고객 온보딩 속도 향상
+---
 
-### 🔌 외부 시스템(OpenAPI) 연동 서버 구축
+## 주요 설계 결정
 
-- 사방넷, 플레이오토 등 외부 시스템과 연동하는 서버 개발
-- OpenAPI 스펙 정의와 Swagger 문서화로 협업 구조 개선
-- 연동 장애 분석 및 복구 시나리오를 마련해 오류율 약 30% 감소
+### 🏗 왜 DDD를 도입했는가
 
-### 🔧 DevOps 및 IaC 환경 구축
+초기에는 레이어드 아키텍처에 서비스 클래스가 비대해지는 구조였습니다. 상품·주문·재고가 하나의 서비스에서 얽히면서, 기능 하나를 변경하면 의존 범위를 파악하기 어려워졌습니다. 도메인을 분리하고 팀 간 용어를 통일한 뒤, 비즈니스 규칙을 도메인 모델에 집중시켜 변경 영향 범위를 줄였습니다.
 
-- Terraform을 도입해 인프라 배포를 자동화하고 배포 시간 50% 단축
-- Jenkins와 GitHub Actions 기반 CI/CD 파이프라인 구축
-- CloudWatch·Datadog 기반 모니터링 환경 개선
+### 📨 ActiveMQ → RabbitMQ 전환
+
+ActiveMQ에서 메시지 유실과 성능 한계가 반복되었습니다. RabbitMQ로 전환하면서 Routing Key 전략, DLQ, 재시도 정책을 함께 설계했습니다. 전환 후 시간당 30만 건, 하루 600만 건 이상의 메시지를 안정적으로 처리할 수 있게 되었습니다.
+
+### 🏢 Multi-Tenancy 선택 이유
+
+고객사별로 별도 인스턴스를 운영하면 인프라 비용과 관리 부담이 선형으로 증가합니다. Shared DB + Schema 분리 전략을 선택해 공통 로직은 재사용하고, 고객사별 설정과 데이터만 격리했습니다. 신규 고객 온보딩 시간이 크게 줄었고, 유지보수 비용을 약 25% 절감했습니다.
+
+### ⚡ MQ 이벤트 기반 Auto Scaling
+
+CloudWatch에서 RabbitMQ 큐 깊이 메트릭을 수집하고, Lambda가 ECS 서비스의 desired count를 조정하는 구조를 만들었습니다. 트래픽이 몰리는 시간대에만 워커가 스케일 아웃되고, 유휴 시간에는 최소 인스턴스로 운영해 운영 비용을 약 35% 절감했습니다.
+
+### 🔒 멱등성 보장
+
+외부 마켓 API는 응답이 불안정할 수 있습니다. 메시지 처리 시 idempotency key를 기록하고, 동일 메시지가 재전달되어도 중복 처리가 발생하지 않도록 했습니다. DLQ로 빠진 메시지는 별도 알림을 통해 수동 복구 또는 자동 재처리 판단을 하는 구조입니다.
+
+---
+
+## 성과
+
+| 항목 | 수치 |
+|------|------|
+| 메시지 처리량 | 시간당 30만 건, 하루 600만+ 건 |
+| 운영 비용 절감 | Auto Scaling으로 약 35% |
+| 유지보수 비용 절감 | Multi-Tenancy 도입으로 약 25% |
+| 외부 연동 오류율 | 재시도/멱등성 도입 후 약 30% 감소 |
