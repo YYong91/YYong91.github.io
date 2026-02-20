@@ -6,11 +6,11 @@ profile:
   github: "https://github.com/YYong91"
   blog: "https://yyong91.github.io"
   summary: >
-    도메인 중심으로 문제를 정의하고 기술로 해결하는 백엔드 개발자입니다.
-    Python을 기반으로 백엔드 개발을 해왔으며, 서비스가 성장하는 과정에서 발생하는
-    구조적 문제를 해결하는 데 집중해왔습니다.
-    도메인 구조 정립, 대규모 데이터 흐름 설계, 비동기 메시징 안정화, 아키텍처 전환 등
-    확장성과 신뢰성을 요구하는 영역에서 주로 역할을 맡았습니다.
+    구조적 문제를 먼저 정의하고, AI 에이전트를 레버리지 삼아 빠르게 실행하는 백엔드 엔지니어입니다.
+    기술 목록보다 어떤 도메인 문제를 어떻게 풀었는지를 중심으로 일하며,
+    Claude Code를 포함한 AI 에이전트 협업을 개발 방식의 핵심으로 삼고 있습니다.
+    DDD, MSA, 이벤트 기반 설계 같은 구조적 기반 위에서,
+    AI 에이전트가 실행 속도를 높이는 시대에 맞는 개발 방식을 추구합니다.
 
 skills:
   - category: "Architecture"
@@ -36,7 +36,7 @@ experience:
   - company: "주식회사 큐빅 (CUBIG)"
     period: "2026.01 - 재직중"
     position: "Backend Engineer"
-    description: "AI 기반 합성 데이터 생성 플랫폼(DTS)의 백엔드 시스템을 설계하고 구현하고 있습니다."
+    description: "기업 AI를 위한 합성데이터 플랫폼(AI-Ready Data OS)의 백엔드 시스템을 설계하고 구현하고 있습니다."
     projects:
       - name: "Billing 마이크로서비스"
         summary: "DDD 아키텍처 기반 결제·구독·크레딧 시스템"
@@ -47,9 +47,6 @@ experience:
       - name: "플랫폼 인프라 및 DevOps"
         summary: "Terraform IaC, ECS 배포, CI/CD, 문서 자동화"
         link: "/projects/cubig-infra/"
-      - name: "dev-portfolio: Claude Code 플러그인"
-        summary: "세션 데이터에서 블로그 포스트를 자동 생성하는 AI 에이전트 파이프라인"
-        link: "/projects/dev-portfolio-plugin/"
 
   - company: "주식회사 저스트큐 (JustQ)"
     period: "2020.07 - 2025.12"
@@ -61,7 +58,7 @@ experience:
         link: "/projects/justq-platform/"
 
   - company: "이지케어텍(주)"
-    period: "2016.12 - 2020.07"
+    period: "2016.12 - 2020.06"
     position: "Software Engineer"
     description: "병원 정보 시스템(HIS)을 구축하고, 사우디아라비아 현지 파견 개발을 수행했습니다."
     projects:
