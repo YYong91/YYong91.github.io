@@ -31,53 +31,70 @@ Claude Code 없이 Claude Co-Work(웹)으로 디버깅을 시작했습니다. "�
 
 ## 💥 원인
 
-`~/.claude/plugins/local/dev-portfolio/` 폴더가 `installed_plugins.json`에 등록되어 있었지만, 폴더 안에 아무 파일도 없었습니다.
+**`installed_plugins.json`을 수동으로 편집했기 때문입니다.**
 
-Claude Code는 시작할 때 등록된 플러그인을 순서대로 로드합니다. `manifest.json`이 없으면 로드 과정에서 무한 대기 상태에 빠집니다. 에러 메시지도 없이.
+Claude Code 플러그인은 `/plugin` 명령어로 설치해야 합니다. `installed_plugins.json`을 직접 편집하는 것은 지원되지 않는 방법이며, 잘못된 경로나 형식으로 인해 무한 대기 상태에 빠질 수 있습니다.
 
-## 🔧 해결 과정
+## 🔧 해결 방법
 
-플러그인 폴더를 통째로 수술했습니다.
+### 1. 문제 제거
+
+`installed_plugins.json`에서 문제가 되는 항목을 제거합니다:
 
 ```bash
-# 1. 기존 plugins 폴더 백업
-mv ~/.claude/plugins ~/.claude/plugins.bak
-
-# 2. 핵심 디렉토리만 복원
-cp -r ~/.claude/plugins.bak/cache ~/.claude/plugins/
-cp -r ~/.claude/plugins.bak/marketplaces ~/.claude/plugins/
-
-# 3. installed_plugins.json 복원
-#    plugins.bak의 installed_plugins.json에서 dev-portfolio@local 항목 제거 후 복사
-
-# 4. local/dev-portfolio 폴더는 복원하지 않음
+# ~/.claude/plugins/installed_plugins.json 열어서
+# 문제가 되는 플러그인 항목 제거
 ```
 
-마켓플레이스에서 설치한 플러그인들은 cache에 있어서 재설치 없이 살아났습니다. `dev-portfolio` 로컬 플러그인만 새로 제대로 만들었습니다.
+로컬 플러그인 관련 항목(심볼릭 링크, marketplace 설정 등)을 모두 제거하면 Claude Code가 정상 부팅됩니다.
 
-## ✅ 로컬 플러그인 만들 때 최소 구성
+### 2. 올바른 로컬 플러그인 설치
 
-`installed_plugins.json`에 등록하기 전에 이 파일들이 먼저 있어야 합니다.
+Claude Code **내에서** `/plugin` 명령어를 사용해야 합니다:
+
+```bash
+# 1. Marketplace 추가
+/plugin marketplace add /path/to/your-plugin
+
+# 2. 플러그인 설치
+/plugin install your-plugin@marketplace-name
+
+# 3. Claude Code 재시작
+```
+
+또는 개발/테스트 목적이라면 설치 없이 사용:
+
+```bash
+claude --plugin-dir /path/to/your-plugin
+```
+
+## ✅ 로컬 플러그인 최소 구성
+
+플러그인에 필수로 필요한 것은 `.claude-plugin/plugin.json` 파일뿐입니다:
+
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json          # 필수! 플러그인 메타데이터
+├── commands/                # 선택: 슬래시 명령어
+├── skills/                  # 선택: AI 스킬
+└── agents/                  # 선택: 커스텀 에이전트
+```
 
 ```json
-// manifest.json
+// .claude-plugin/plugin.json
 {
-  "name": "plugin-name",
-  "version": "0.1.0",
-  "description": "설명"
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "Plugin description"
 }
 ```
 
-```json
-// .mcp.json (MCP 서버 없어도 빈 파일로)
-{
-  "mcpServers": {}
-}
-```
+**주의**: `manifest.json`이나 `.mcp.json`을 루트에 만들 필요 **없습니다**. `.claude-plugin/plugin.json`만 있으면 됩니다.
 
-| 파일 | 없을 때 증상 |
-|------|------------|
-| `manifest.json` | Claude Code 시작 시 무한 대기 (무증상) |
-| `.mcp.json` | MCP 서버 사용 시 로드 실패 |
+## 📚 교훈
 
-플러그인 코드보다 구성 파일 먼저입니다.
+- ❌ `installed_plugins.json` 수동 편집 금지
+- ✅ `/plugin` 명령어로 설치
+- ✅ 개발 중이라면 `--plugin-dir` 플래그 사용
+- ✅ 공식 문서 참조: https://code.claude.com/docs/en/plugins
