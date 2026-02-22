@@ -87,6 +87,21 @@ experience:
           - "간호사 300명 대상 시스템 사용 교육 수행"
           - "BA 겸 개발자로서 현지 혈액은행 책임자와 직접 소통해 요구사항 도출, 기능 개발 → AABB 국제 인증 취득"
 
+personal_projects:
+  - name: "Podonest"
+    period: "2026.02 - 진행중"
+    description: "React + FastAPI 풀스택 개인 프로젝트 생태계. 3개 서비스가 단일 디자인 시스템과 SSO를 공유합니다."
+    projects:
+      - name: "GitHub Template 기반 풀스택 스캐폴딩"
+        bullets:
+          - "React + FastAPI 풀스택 GitHub Template을 설계 및 구현했습니다. 46개 파일, Grape Design System(CSS custom properties), Sentry lazy loading, SSO Shadow User 패턴을 포함한 프로덕션 수준의 스캐폴딩으로 3개 서비스의 디자인 시스템을 통일했습니다."
+      - name: "SSO Shadow User 패턴"
+        bullets:
+          - "podo-auth JWT(TSID BigInt sub)와 서비스별 로컬 users 테이블을 auth_user_id FK로 연결하는 Shadow User 패턴을 설계했습니다. 기존 Integer PK를 유지한 채 SSO를 적용해 zero breaking changes로 3개 서비스에 단일 인증을 도입했습니다."
+      - name: "Sentry 조건부 lazy loading"
+        bullets:
+          - "DSN 환경변수 존재 여부에 따라 Sentry를 번들에서 완전 제외하는 조건부 lazy loading을 구현했습니다. 개발 환경 번들 크기를 약 200KB 절감했습니다."
+
 education:
   - school: "경희대학교"
     period: "2010.03 - 2016.08"
@@ -100,3 +115,23 @@ certifications:
 languages:
   - name: "영어"
     level: "비즈니스 레벨 (OPIc IH)"
+
+achievements:
+  - date: "2026-02"
+    project: "Podonest"
+    bullet_ko: "React + FastAPI 풀스택 GitHub Template(46개 파일)을 설계 및 구현해 3개 서비스의 디자인 시스템을 통일했습니다."
+    bullet_en: "Designed and implemented a React + FastAPI fullstack GitHub Template (46 files), unifying the design system across 3 services."
+    tags: ["GitHub Template", "React", "FastAPI", "Design System", "scaffolding"]
+    source_sessions: ["2026-02-22-podo-design-unification"]
+  - date: "2026-02"
+    project: "Podonest"
+    bullet_ko: "SSO Shadow User 패턴을 설계해 기존 Integer PK를 깨지 않고 3개 서비스에 단일 인증을 도입했습니다 (zero breaking changes)."
+    bullet_en: "Designed the SSO Shadow User pattern, introducing single sign-on across 3 services with zero breaking changes to existing Integer PKs."
+    tags: ["SSO", "JWT", "TSID", "auth", "zero-breaking-change"]
+    source_sessions: ["2026-02-22-podo-design-unification"]
+  - date: "2026-02"
+    project: "Podonest"
+    bullet_ko: "Sentry 조건부 lazy loading을 구현해 개발 환경 번들 크기를 약 200KB 절감했습니다."
+    bullet_en: "Implemented conditional Sentry lazy loading, reducing the development bundle size by approximately 200KB."
+    tags: ["Sentry", "bundle optimization", "lazy loading", "frontend"]
+    source_sessions: ["2026-02-22-podo-design-unification"]

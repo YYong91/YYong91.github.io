@@ -1,8 +1,8 @@
 ---
 title: "podonest: 가족 멀티서비스 SSO 아키텍처"
 description: "podo-auth를 허브로 3개 서비스가 JWT 하나로 연결되는 홈서버 기반 가족 앱 플랫폼"
-date: 2026-02-21
-tags: ["FastAPI", "React", "SSO", "JWT", "OAuth", "PostgreSQL", "SQLite", "Docker", "System Architecture", "Multi-user Architecture", "TDD", "Telegram Bot", "Security", "Testing"]
+date: 2026-02-22
+tags: ["FastAPI", "React", "SSO", "JWT", "OAuth", "PostgreSQL", "SQLite", "Docker", "System Architecture", "Multi-user Architecture", "TDD", "Telegram Bot", "Security", "Testing", "Design System", "Fly.io", "Sentry", "Google Books API"]
 weight: 3
 mermaid: true
 ---
@@ -41,7 +41,7 @@ graph TD
 |--------|--------|----|-----------|
 | podo-auth | auth.podonest.com | SQLite | 자체 (JWT 발급 허브) |
 | podo-bookshelf | bookshelf.podonest.com | SQLite | SSO 적용 완료 |
-| podo-budget | budget.podonest.com | SQLite | 자체 → SSO 전환 중 |
+| podo-budget | budget.podonest.com | SQLite | SSO 전환 완료 |
 
 ## 기술 스택
 
@@ -49,8 +49,10 @@ graph TD
 - **프론트엔드**: React 19
 - **인증**: JWT HS256, TSID (BigInt PK), issuer claim 기반 검증
 - **DB**: SQLite (전 서비스 로컬), PostgreSQL (budget 프로덕션 예정)
-- **인프라**: 홈서버, Docker Compose, Cloudflare Tunnel
+- **인프라**: 홈서버, Docker Compose, Cloudflare Tunnel, Fly.io
 - **테스트**: pytest 378개 (podo-budget), Vitest + React Testing Library
+- **모니터링**: Sentry
+- **디자인**: Grape Design System (CSS custom properties)
 
 ## 주요 작업
 
@@ -60,6 +62,11 @@ graph TD
 - **2026-02-22**: 멀티서비스 테스트 커버리지 강화 — Vitest + React Testing Library 프론트엔드 테스트, pytest 85개 이상 신규 추가
 - **2026-02-22**: git post-merge 자동 배포 hook 설치 — `git pull` 시 `docker compose up -d --build` 자동 실행
 - **2026-02-22**: Telegram 코드 기반 계정 연동 구현 (PR #8) — 평문 패스워드 방식 완전 제거, 일회용 코드 시스템으로 전환
+- **2026-02-22**: Grape Design System 통일 — grape/leaf/warm/cream CSS custom properties를 podo-auth, podo-budget, podo-bookshelf 3개 서비스에 통일 적용
+- **2026-02-22**: podo-template GitHub Template Repository 생성 — React + FastAPI + SSO + Sentry + Fly.io 조합의 표준 스캐폴딩 (46개 파일)
+- **2026-02-22**: Shadow User 패턴 구현 완료 — podo-auth JWT `sub` (TSID BigInt) → 각 서비스 로컬 `auth_user_id` FK 매핑, 기존 Integer PK 마이그레이션 없이 SSO 적용
+- **2026-02-22**: podo-budget Layout 리팩터링 — sticky 헤더 제거, 사이드바 전용 레이아웃 + 모바일 48px 미니 헤더로 전환
+- **2026-02-22**: Google Books API 429 수정 — API key 없는 요청이 공유 쿼터를 소진하는 문제 → Fly.io secret으로 API key 주입하여 해결
 
 ## 아키텍처 특징
 
@@ -78,6 +85,14 @@ password_hash VARCHAR          password_hash VARCHAR
                                auth_user_id BIGINT    ← 추가
                                (podo-auth JWT sub)
 ```
+
+### Grape Design System
+
+3개 서비스가 각자 다른 색상 변수를 쓰고 있었습니다. CSS custom properties를 `--grape`, `--leaf`, `--warm`, `--cream` 4개 팔레트로 정리하고 전 서비스에 통일 적용했습니다. 이후 신규 서비스는 podo-template을 fork해서 시작하면 동일한 디자인 기반으로 출발합니다.
+
+### podo-template (GitHub Template Repository)
+
+새 포도 서비스를 시작할 때마다 SSO 연동, Sentry 설정, Fly.io 배포 설정을 처음부터 작성하는 반복 작업이 있었습니다. React + FastAPI + SSO + Sentry + Fly.io 조합을 46개 파일로 정리하여 GitHub Template Repository로 만들었습니다. 새 서비스는 "Use this template" 한 번으로 기본 골격을 갖춥니다.
 
 ### 가족 공유 모델 (podo-bookshelf)
 
