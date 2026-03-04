@@ -2,7 +2,7 @@
 title: "dev-portfolio: Claude Code 플러그인"
 description: "세션 데이터에서 블로그 포스트를 자동 생성하는 AI 에이전트 파이프라인"
 date: 2026-02-19
-tags: ["claude-code", "plugin", "AI agent", "automation"]
+tags: ["claude-code", "plugin", "AI agent", "automation", "Hugo", "PaperMod"]
 weight: 4
 mermaid: true
 ---
@@ -51,15 +51,22 @@ RC --> OUT
 | **커맨드** | 7개 | setup, plan, log, generate, status, help, wrap |
 | **스킬** | 3개 | session-logging, draft-generation, blog-planner |
 
+## 주요 작업
+
+- **2026-02-19**: Hugo 포트폴리오 사이트 구축 (PaperMod 테마, Warm Craft 디자인 적용)
+- **2026-02-19**: dev-portfolio 플러그인을 사이트 repo와 분리 — 플러그인은 `~/.claude/plugins/local/`에, 사이트는 `YYong91.github.io`에 독립 관리
+- **2026-02-19**: GitHub Actions 자동 배포 완성 — main 브랜치 push 시 Hugo 빌드 → GitHub Pages 배포
+- **2026-02-19**: PR 기반 콘텐츠 발행 워크플로우 도입 — 포스트는 feature 브랜치에서 작성 후 PR로 병합
+
 ## 핵심 설계
 
-### 🎯 2단계 파이프라인
+### 2단계 파이프라인
 
 1단계에서 가벼운 모델(haiku)이 세션 컨텍스트를 분석해 구조화된 JSON raw log를 생성합니다. 2단계에서 더 능력 있는 모델(sonnet)이 raw log를 읽고 목적별 마크다운 콘텐츠를 생성합니다.
 
 이렇게 분리한 이유는 비용과 품질의 균형입니다. 세션 데이터 추출은 구조화 작업이라 가벼운 모델로 충분하고, 글쓰기는 톤과 구조가 중요해서 더 큰 모델이 필요합니다.
 
-### ✍️ 스타일 가이드 내장
+### 스타일 가이드 내장
 
 각 writer 에이전트에 실제 작성자의 블로그 글 스타일을 분석한 가이드가 내장되어 있습니다. AI가 쓴 것처럼 보이는 문체를 명시적으로 금지하고, 구체적인 스타일 규칙(입니다체, Before-After 구조, 표 활용, 섹션 이모지 등)을 정의했습니다.
 
@@ -73,9 +80,13 @@ RC --> OUT
 - 비교는 표(table)로
 - 구체적 숫자, 실제 에러 메시지, 파일명 포함
 
-### 🔄 /wrap 통합
+### /wrap 통합
 
 기존 session-wrap 스킬과 통합했습니다. `/portfolio wrap` 하나로 세션 분석 + 문서 업데이트 제안 + 블로그 포스트 생성이 동시에 진행됩니다.
+
+### 사이트와 플러그인 분리
+
+포트폴리오 사이트(`YYong91.github.io`)와 플러그인(`dev-portfolio`) 레포를 분리해 관리합니다. 플러그인은 Claude Code 로컬 플러그인으로 설치되고, 생성된 콘텐츠는 사이트 레포에 PR로 발행됩니다. 이 구조 덕분에 플러그인 업데이트가 사이트 히스토리에 섞이지 않습니다.
 
 ## 커맨드 사용법
 
